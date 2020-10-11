@@ -2,6 +2,27 @@
 
 {% block content %}
 
-Home!
+{% for product in products.all %}
+<div class="row my-2">
+	<div class="col-2 my-auto">
+		<img src="{{ product.icon.url }}" class="img-fluid" onclick="window.location='{% url 'detail' product.id %}';" style=
+		"cursor: pointer;">
+	</div>
+	<div class="col-8 my-auto">
+		<h1>{{ product.title }}</h1>
+		<p>{{ product.summary }}</p>
+	</div>
+	<div class="col-2 my-auto">
+		<a href="javascript:{document.getElementById('upvote{{ product.id }}').submit()}" class="btn btn-secondary btn-block"><i class="fas fa-caret-up"></i> Upvote {{ product.votes_total }}</a>
+	</div>
+</div>
+
+<!-- hidden form for upvote, also passing product id so we could correctly count up for specific prodcut -->
+<form id="upvote{{ product.id }}" method="POST" action="{% url 'upvote' product.id %}">
+	{% csrf_token %}
+	<input type="hidden">
+</form>
+
+{% endfor %}
 
 {% endblock %}

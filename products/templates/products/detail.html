@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- icon and title -->
+<div class="row my-2">
+	<div class="col-2">
+		<img src="{{ product.icon.url }}" class="img-fluid">
+	</div>
+	<div class="col-10">
+		<a href="{{ product.url }}">
+			<h1>{{ product.title }}</h1>
+		</a>
+	</div>
+</div>
+
+<!-- image and upvote button -->
+<div class="row my-2">
+	<div class="col-8">
+		<img src="{{ product.image.url }}" class="img-fluid">
+	</div>
+	<div class="col-4">
+		<a href="javascript:{document.getElementById('upvote').submit()}" class="btn btn-secondary btn-lg btn-block"><i class="fas fa-caret-up"></i> Upvote {{ product.votes_total }}</a>
+	</div>
+</div>
+
+<!-- name and date -->
+<div class="row my-2">
+	<div class="col-4 mt-2">
+		<h4 class="text-secondary"><i class="fas fa-hippo"></i> Hunted by {{ product.hunter.username }}</h4>
+	</div>
+	<div class="col-4 text-right mt-2">
+		<h4 class="text-secondary"><i class="fas fa-clock"></i> {{ product.pub_date_pretty }}</h4>
+	</div>
+</div>
+
+<!-- body -->
+<div class="row">
+	<div class="col-8">
+		{{ product.body|linebreaks }}
+	</div>
+</div>
+
+<!-- hidden form for upvote, also passing product id so we could correctly count up for specific prodcut -->
+<form id="upvote" method="POST" action="{% url 'upvote' product.id %}">
+	{% csrf_token %}
+	<input type="hidden">
+</form>
+
+{% endblock %}

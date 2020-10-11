@@ -14,7 +14,7 @@
 	
 	<nav class="navbar navbar-expand-sm bg-light navbar-light text-secondary">
 		<div class="container">
-			<a class="navbar-brand">
+			<a class="navbar-brand" href="{% url 'home' %}">
 				<img src="{% static 'logo.png' %}" class="d-inline-block align-top mr-1" height=30 width=30>
 				Producthunt Clone
 			</a>
@@ -27,7 +27,10 @@
 					<!-- <li class="nav-item">
 						<a href="#" class="nav-link">User : {{user.username}}</a>
 					</li> -->
-					<li class="nav-link">{{ user.username }}</li>
+					<li class="nav-link">Hello {{ user.username }}!</li>
+					<li class="nav-item">
+						<a href="{% url 'create' %}" class="nav-link"><i class="fas fa-plus"></i> Create</a>
+					</li>
 					<li class="nav-item">
 						<a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">Logout</a>
 						<form action="{% url 'logout' %}" id="logout" method="POST">

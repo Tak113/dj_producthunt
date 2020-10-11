@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- error handling -->
+{% if error %}
+<p class="text-danger">{{ error }}</p>
+<br>
+{% endif %}
+
+<h1>Create</h1>
+
+<!-- post request back to server  -->
+<!-- dealing with image requires enctype -->
+<form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
+	<!-- prevent attacking -->
+	{% csrf_token %}
+	Title:
+	<br>
+	<input type="text" name="title">
+	<br>
+	Body:
+	<br>
+	<textArea name="body"></textArea>
+	<br>
+	URL:
+	<br>
+	<input type="text" name="url">
+	<br>
+	Icon:
+	<br>
+	<input type="file" name="icon">
+	<br>
+	Image:
+	<br>
+	<input type="file" name="image">
+	<br>
+	<br>
+	<input class="btn btn-dark" type="submit" value="Add Product">
+	<a href="{% url 'home' %}" class="btn btn-dark">Back to home</a>
+
+</form>
+
+{% endblock %}
